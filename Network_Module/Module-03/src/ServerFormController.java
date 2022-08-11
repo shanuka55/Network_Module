@@ -24,6 +24,8 @@ public class ServerFormController {
     DataOutputStream dataOutputStream;
     BufferedReader bufferedReader;
 
+    String massage = "";
+
     public void initialize(){
         new Thread(() -> {
             try {
@@ -37,7 +39,7 @@ public class ServerFormController {
 
      //           bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-                String massage = dataInputStream.readUTF();
+                massage = dataInputStream.readUTF();
                 System.out.println(massage);
 
             } catch (IOException e) {
@@ -48,7 +50,11 @@ public class ServerFormController {
     }
 
     @FXML
-    void serverBtnOnAction(ActionEvent event) {
+    void serverBtnOnAction(ActionEvent event) throws IOException {
+        String massageText = textMassage.getText();
+        dataOutputStream.writeUTF(massageText);
+        dataOutputStream.flush();
+
 
     }
 
